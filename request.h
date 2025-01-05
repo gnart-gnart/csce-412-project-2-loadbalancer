@@ -9,4 +9,4 @@ struct Request {
     char jobType;
 };
 
-#endif REQUEST_H;
+#endif

@@ -12,4 +12,4 @@ public:
     void runOneCycle();
 };
 
-#endif WEBSERVER_H
+#endif
