@@ -11,15 +11,13 @@ LoadBalancer::LoadBalancer() {
 }
 
 void LoadBalancer::runOneCycle() {
-    int n = webServers.size();
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < webServers.size(); i++) {
         WebServer current = webServers.at(i);
-        if (current.isBusy) {
-            current.runOneCycle();
-        }
-        else {
+        current.runOneCycle();
+        if (!current.isBusy) {
             if (requestQueue.empty()) {
                 webServers.erase(webServers.begin() + i);
+                i--;
             }
             else {
                 current.assignRequest(requestQueue.back());
