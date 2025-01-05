@@ -11,5 +11,19 @@ LoadBalancer::LoadBalancer() {
 }
 
 void LoadBalancer::runOneCycle() {
-
+    int n = webServers.size();
+    for (int i = 0; i < n; i++) {
+        WebServer current = webServers.at(i);
+        if (current.isBusy) {
+            current.runOneCycle();
+        }
+        else {
+            if (requestQueue.empty()) {
+                webServers.erase(webServers.begin() + i);
+            }
+            else {
+                current.assignRequest(requestQueue.pop());
+            }
+        }
+    }
 }
