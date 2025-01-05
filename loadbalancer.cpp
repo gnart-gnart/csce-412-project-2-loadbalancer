@@ -22,7 +22,8 @@ void LoadBalancer::runOneCycle() {
                 webServers.erase(webServers.begin() + i);
             }
             else {
-                current.assignRequest(requestQueue.pop());
+                current.assignRequest(requestQueue.back());
+                requestQueue.pop();
             }
         }
     }
