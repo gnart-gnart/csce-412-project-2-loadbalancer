@@ -6,7 +6,9 @@
 class WebServer {
 private:
     Request request;
+    
 public:
+    WebServer();
     bool isBusy;
     void assignRequest(Request r);
     void runOneCycle();
