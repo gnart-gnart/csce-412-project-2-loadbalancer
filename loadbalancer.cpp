@@ -1,5 +1,9 @@
 #include "loadbalancer.h"
+#include <iostream>
 
+LoadBalancer::LoadBalancer() {
+
+}
 
 void LoadBalancer::createWebservers(int num_web_servers) {
     for (int i = 0; i < num_web_servers; i++) {
@@ -18,16 +22,23 @@ void LoadBalancer::runOneCycle() {
         if (!current.isBusy) {
             if (requestQueue.empty()) {
                 if (webServers.size() > 3) {
+                    // log that webServer finished task
+                    std::cout << "WebServer " << current.id << " finished request "
+                        << current.request.id << std::endl;
+                    requests_finished++;
+
                     webServers.erase(webServers.begin() + i);
                     availableWebServerIds.push(i + 1);
                     i--;
-                    // TODO: log that webServer finished task
                 }
             }
             else {
                 current.assignRequest(requestQueue.front());
                 requestQueue.pop();
-                // TODO: log that webServer assigned request and finished task
+                // log that webServer assigned request
+                servers_deleted++;
+                std::cout << "WebServer " << current.id << " assigned Request " 
+                    << requestQueue.front().id << std::endl;
             }
         }
     }
@@ -43,7 +54,9 @@ void LoadBalancer::runOneCycle() {
             availableWebServerIds.pop();
         }
         webServers.push_back(ws);
-        // TODO: log that webServer was created
+        // log that webServer was created
+        servers_created++;
+        std::cout << "Created WebServer with ID " << ws.id << std::endl;
     }
 }
 

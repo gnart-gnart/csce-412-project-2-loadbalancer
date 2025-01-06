@@ -4,12 +4,10 @@
 #include "request.h"
 
 class WebServer {
-private:
-    Request request;
-
 public:
     WebServer();
     WebServer(int id);
+    Request request;
     bool isBusy;
     void assignRequest(Request r);
     void runOneCycle();
