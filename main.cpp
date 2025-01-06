@@ -5,8 +5,9 @@ LoadBalancer loadBalancer;
 
 void run_load_balancer(int num_clock_cycles, int num_web_servers) {
     loadBalancer.createWebservers(num_web_servers);
+
     for (int i = 0; i < num_clock_cycles; i++) {
-        loadBalancer.runOneCycle();
+        loadBalancer.runOneCycle("T" + std::to_string(i));
         if ((rand() % 5) == 0) {
             loadBalancer.pushNewRequest();
         }
@@ -14,7 +15,7 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers) {
 
     std::cout << "Finished " << loadBalancer.requests_finished << " requests."
         << std::endl << "Created " << loadBalancer.servers_created << " servers."
-        << std::endl << "Deleted " << loadBalancer.servers_deleted << " servers.";
+        << std::endl << "Deleted " << loadBalancer.servers_deleted << " servers.\n";
 }
 
 int main(int argc, char* argv[]) {

@@ -2,6 +2,7 @@
 #define LOAD_BALANCER_H
 #include <queue>
 #include <vector>
+#include <string.h>
 #include "request.h"
 #include "webserver.h"
 
@@ -13,7 +14,7 @@ private:
 
 public:
     LoadBalancer();
-    void runOneCycle();
+    void runOneCycle(std::string time);
     void createWebservers(int num_web_servers);
     void pushNewRequest();
 

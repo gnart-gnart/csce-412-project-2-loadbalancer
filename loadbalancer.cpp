@@ -15,48 +15,55 @@ void LoadBalancer::createWebservers(int num_web_servers) {
     availableWebServerIds.push(webServers.size());
 }
 
-void LoadBalancer::runOneCycle() {
-    for (int i = 0; i < webServers.size(); i++) {
-        WebServer current = webServers.at(i);
-        current.runOneCycle();
-        if (!current.isBusy) {
-            if (requestQueue.empty()) {
-                if (webServers.size() > 3) {
-                    // log that webServer finished task
-                    std::cout << "WebServer " << current.id << " finished request "
-                        << current.request.id << std::endl;
-                    requests_finished++;
+void LoadBalancer::runOneCycle(std::string time) {
 
+    for (int i = 0; i < webServers.size(); i++) {
+
+        WebServer current = webServers.at(i);
+
+        if (!current.isBusy) {
+            // try to assign a request
+            if (requestQueue.empty()) {
+                // try to delete web server
+                if (webServers.size() > 3) {
+                    // log that webServer is deleted
+                    std::cout << "WebServer " << current.id << " deleted" << std::endl;
+                    servers_deleted++;
                     webServers.erase(webServers.begin() + i);
                     availableWebServerIds.push(i + 1);
                     i--;
                 }
+                continue;
+            }
+            // assign request
+            current.assignRequest(requestQueue.front());
+            requestQueue.pop();
+            std::cout << time << ": WebServer " << current.id << " assigned Request " 
+                << requestQueue.front().id << std::endl;
+        }
+
+        current.runOneCycle();
+
+        if (!current.isBusy) {
+            std::cout << time << ": WebServer " << current.id << 
+                " finished Request " << current.request.id << std::endl;
+            requests_finished++;
+        }
+
+        // check if webServers needs to be expanded
+        if (requestQueue.size() > (5 * webServers.size())) {
+            WebServer ws;
+            if (availableWebServerIds.empty()) {
+                ws = WebServer(webServers.size());
             }
             else {
-                current.assignRequest(requestQueue.front());
-                requestQueue.pop();
-                // log that webServer assigned request
-                servers_deleted++;
-                std::cout << "WebServer " << current.id << " assigned Request " 
-                    << requestQueue.front().id << std::endl;
+                ws = WebServer(availableWebServerIds.front());
+                availableWebServerIds.pop();
             }
+            webServers.push_back(ws);
+            servers_created++;
+            std::cout << time << ": Created WebServer with ID " << ws.id << std::endl;
         }
-    }
-
-    // check if webServers needs to be expanded
-    if (requestQueue.size() > (5 * webServers.size())) {
-        WebServer ws;
-        if (availableWebServerIds.empty()) {
-            ws = WebServer(webServers.size());
-        }
-        else {
-            ws = WebServer(availableWebServerIds.front());
-            availableWebServerIds.pop();
-        }
-        webServers.push_back(ws);
-        // log that webServer was created
-        servers_created++;
-        std::cout << "Created WebServer with ID " << ws.id << std::endl;
     }
 }
 
