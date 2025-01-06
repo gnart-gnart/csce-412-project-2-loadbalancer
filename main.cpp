@@ -15,7 +15,9 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers) {
 
     std::cout << "Finished " << loadBalancer.requests_finished << " requests."
         << std::endl << "Created " << loadBalancer.servers_created << " servers."
-        << std::endl << "Deleted " << loadBalancer.servers_deleted << " servers.\n";
+        << std::endl << "Deleted " << loadBalancer.servers_deleted << " servers.";
+        //<< std::endl << "There are " << loadBalancer. << " servers left."
+       // << std::endl << "There are " << loadBalancer. << " requests left.\n";
 }
 
 int main(int argc, char* argv[]) {

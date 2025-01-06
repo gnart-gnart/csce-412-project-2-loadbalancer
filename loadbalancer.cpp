@@ -12,7 +12,7 @@ void LoadBalancer::createWebservers(int num_web_servers) {
             requestQueue.push(Request((i * 5) + j + 1));
         }
     }
-    availableWebServerIds.push(webServers.size());
+    availableWebServerIds.push(webServers.size() + 1);
 }
 
 void LoadBalancer::runOneCycle(std::string time) {
@@ -39,7 +39,7 @@ void LoadBalancer::runOneCycle(std::string time) {
             current.assignRequest(requestQueue.front());
             requestQueue.pop();
             std::cout << time << ": WebServer " << current.id << " assigned Request " 
-                << requestQueue.front().id << std::endl;
+                << current.request.id << std::endl;
         }
 
         current.runOneCycle();
@@ -54,7 +54,7 @@ void LoadBalancer::runOneCycle(std::string time) {
         if (requestQueue.size() > (5 * webServers.size())) {
             WebServer ws;
             if (availableWebServerIds.empty()) {
-                ws = WebServer(webServers.size());
+                ws = WebServer(webServers.size() + 1);
             }
             else {
                 ws = WebServer(availableWebServerIds.front());

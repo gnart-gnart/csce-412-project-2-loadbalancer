@@ -12,6 +12,7 @@ WebServer::WebServer(int id) {
 
 void WebServer::assignRequest(Request r) {
     request = r;
+    isBusy = true;
 }
 
 void WebServer::runOneCycle() {
