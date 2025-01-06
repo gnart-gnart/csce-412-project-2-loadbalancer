@@ -19,6 +19,6 @@ $(TARGET): $(OBJS)
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-# run the executable
+# run the executable with optional arguments
 run: $(TARGET)
-	./$(TARGET)
+	./$(TARGET) $(ARGS)
