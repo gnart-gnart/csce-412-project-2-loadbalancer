@@ -25,7 +25,7 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers, bool verbose) 
 int main(int argc, char* argv[]) {
     int num_clock_cycles = 10000;
     int num_web_servers = 20;
-    bool verbose = true;
+    bool verbose = false;
 
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-c") == 0 && i + 1 < argc) {
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Running " << num_clock_cycles << " cycles with " 
         << num_web_servers << " servers..." << std::endl;
     run_load_balancer(num_clock_cycles, num_web_servers, verbose);
-    std::cout << "\nDone!" << std::endl;
+    std::cout << "Done!" << std::endl;
 
     return 0;
 }
