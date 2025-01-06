@@ -21,13 +21,16 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers, bool verbose) 
         }
     }
 
-    std::cout << "Started with " << std::to_string(num_web_servers * 5) << " requests in queue."
+    std::cout << std::endl
+        << "Started with " << std::to_string(num_web_servers * 5) << " requests in queue."
         << std::endl << "Ended with " << loadBalancer.getRequestsLeft() << " request in queue."
-        << std::endl << "There are " << loadBalancer.getServersLeft() << " servers left."
-        << std::endl << "Range for task times: 50-100"
+        << std::endl << "Range for task times: 10-100"
         << std::endl << "Added " << loadBalancer.servers_created << " servers."
         << std::endl << "Deleted " << loadBalancer.servers_deleted << " servers."
-        << std::endl << "Finished " << loadBalancer.requests_finished << " requests.\n";
+        << std::endl
+        << std::endl << "There are " << loadBalancer.getServersLeft() << " servers left."
+        << std::endl << "Finished " << loadBalancer.requests_finished << " requests."
+        << std::endl;
 }
 
 /**

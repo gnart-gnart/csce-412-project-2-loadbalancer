@@ -9,7 +9,7 @@ Request::Request() {
     IP_OUT = std::to_string(rand() % 256) + "." + std::to_string(rand() % 256) + "."
          + std::to_string(rand() % 256) + "." + std::to_string(rand() % 256);
     jobType = 'p';
-    timeLeft = (rand() % 51) + 50; // random int 50-100
+    timeLeft = (rand() % 91) + 10; // random int 10-100
     this->id = -1;
 }
 
