@@ -1,0 +1,21 @@
+/**
+* @mainpage Project 2: LoadBalancer
+*
+* @section intro Introduction
+* This project simulates the operations of a load balancer, a critical component in modern computing systems. 
+* The load balancer distributes incoming web requests across multiple servers to ensure no single server is overwhelmed, 
+* optimizing resource usage and providing a seamless user experience.
+*
+* @section features Features
+* - Request Generation: Simulates incoming web requests with random IP addresses, processing times, and job types.
+* - WebServer: Creates multiple servers to process requests in parallel.
+* - Queue Management: Implements a queue to manage requests efficiently.
+* - Dynamic Server Management: Adds or removes servers based on the load.
+*
+* @section usage Usage
+* To run the simulation, compile the program and execute it with the desired number of clock cycles and web servers.
+* Use the `-v` flag for verbose logging.
+*
+* @section team Team
+* This project was developed by Grant Oxford with input from Thomas Bolf.
+*/

@@ -1,12 +1,23 @@
 #include "loadbalancer.h"
 #include <iostream>
 
+/**
+ * @brief Constructs a LoadBalancer object.
+ */
 LoadBalancer::LoadBalancer() : verboseLogging(false) {}
 
+/**
+ * @brief Sets the verbose logging mode.
+ * @param verbose If true, enables verbose logging.
+ */
 void LoadBalancer::setVerboseLogging(bool verbose) {
     verboseLogging = verbose;
 }
 
+/**
+ * @brief Creates a specified number of web servers and initializes the request queue.
+ * @param num_web_servers The number of web servers to create.
+ */
 void LoadBalancer::createWebservers(int num_web_servers) {
     for (int i = 0; i < num_web_servers; i++) {
         webServers.push_back(WebServer(i + 1));
@@ -17,6 +28,10 @@ void LoadBalancer::createWebservers(int num_web_servers) {
     availableWebServerIds.push(webServers.size() + 1);
 }
 
+/**
+ * @brief Simulates one cycle of the load balancer.
+ * @param time The current time step as a string.
+ */
 void LoadBalancer::runOneCycle(std::string time) {
     for (int i = 0; i < webServers.size(); i++) {
         WebServer& current = webServers.at(i);
@@ -75,14 +90,25 @@ void LoadBalancer::runOneCycle(std::string time) {
     }
 }
 
+/**
+ * @brief Returns the number of active web servers.
+ * @return The number of active web servers.
+ */
 int LoadBalancer::getServersLeft() {
     return webServers.size();
 }
 
+/**
+ * @brief Returns the number of pending requests in the queue.
+ * @return The number of pending requests.
+ */
 int LoadBalancer::getRequestsLeft() {
     return requestQueue.size();
 }
 
+/**
+ * @brief Adds a new request to the queue.
+ */
 void LoadBalancer::pushNewRequest() {
     Request r(requestQueue.size());
     requestQueue.push(r);

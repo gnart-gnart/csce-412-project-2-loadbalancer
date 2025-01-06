@@ -4,6 +4,12 @@
 
 LoadBalancer loadBalancer;
 
+/**
+ * @brief Runs the load balancer simulation.
+ * @param num_clock_cycles The number of clock cycles to simulate.
+ * @param num_web_servers The number of web servers to create.
+ * @param verbose If true, enables verbose logging.
+ */
 void run_load_balancer(int num_clock_cycles, int num_web_servers, bool verbose) {
     loadBalancer.setVerboseLogging(verbose);
     loadBalancer.createWebservers(num_web_servers);
@@ -22,6 +28,12 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers, bool verbose) 
         << std::endl << "There are " << loadBalancer.getRequestsLeft() << " requests left.\n";
 }
 
+/**
+ * @brief The main function to run the load balancer simulation.
+ * @param argc The number of command-line arguments.
+ * @param argv The command-line arguments.
+ * @return 0 on success, 1 on failure.
+ */
 int main(int argc, char* argv[]) {
     int num_clock_cycles = 10000;
     int num_web_servers = 20;

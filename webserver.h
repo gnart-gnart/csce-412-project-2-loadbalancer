@@ -3,15 +3,19 @@
 
 #include "request.h"
 
+/**
+ * @class WebServer
+ * @brief Represents a web server that processes requests.
+ */
 class WebServer {
 public:
     WebServer();
     WebServer(int id);
-    Request request;
-    bool isBusy;
+    Request request; ///< The current request being processed.
+    bool isBusy; ///< Indicates whether the server is busy processing a request.
     void assignRequest(Request r);
     void runOneCycle();
-    int id;
+    int id; ///< The unique ID of the web server.
 };
 
 #endif
