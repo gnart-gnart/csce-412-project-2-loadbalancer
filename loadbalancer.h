@@ -11,6 +11,7 @@ private:
     std::vector<WebServer> webServers;
     std::queue<Request> requestQueue;
     std::queue<int> availableWebServerIds;
+    bool verboseLogging; // Added: Logging mode
 
 public:
     LoadBalancer();
@@ -21,10 +22,11 @@ public:
     int getServersLeft();
     int getRequestsLeft();
 
+    void setVerboseLogging(bool verbose); // Added: Set logging mode
+
     int servers_created = 0;
     int servers_deleted = 0;
     int requests_finished = 0;
 };
-
 
 #endif

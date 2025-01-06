@@ -1,8 +1,10 @@
 #include "loadbalancer.h"
 #include <iostream>
 
-LoadBalancer::LoadBalancer() {
+LoadBalancer::LoadBalancer() : verboseLogging(false) {}
 
+void LoadBalancer::setVerboseLogging(bool verbose) {
+    verboseLogging = verbose;
 }
 
 void LoadBalancer::createWebservers(int num_web_servers) {
@@ -16,18 +18,15 @@ void LoadBalancer::createWebservers(int num_web_servers) {
 }
 
 void LoadBalancer::runOneCycle(std::string time) {
-
     for (int i = 0; i < webServers.size(); i++) {
-
         WebServer& current = webServers.at(i);
 
         if (!(current.isBusy)) {
-            // try to assign a request
             if (requestQueue.empty()) {
-                // try to delete web server
                 if (webServers.size() > 3) {
-                    // log that webServer is deleted
-                    std::cout << "WebServer " << current.id << " deleted" << std::endl;
+                    if (verboseLogging) {
+                        std::cout << "WebServer " << current.id << " deleted" << std::endl;
+                    }
                     servers_deleted++;
                     webServers.erase(webServers.begin() + i);
                     availableWebServerIds.push(i + 1);
@@ -35,34 +34,43 @@ void LoadBalancer::runOneCycle(std::string time) {
                 }
                 continue;
             }
-            // assign request
             current.assignRequest(requestQueue.front());
             requestQueue.pop();
-            std::cout << time << ": WebServer " << current.id << " assigned Request " 
-                << current.request.id << std::endl;
+            if (verboseLogging) {
+                std::cout << time << ": WebServer " << current.id << " assigned Request " 
+                          << current.request.id << " (IP_IN: " << current.request.IP_IN 
+                          << ", IP_OUT: " << current.request.IP_OUT << ")" << std::endl;
+            }
         }
 
         current.runOneCycle();
 
         if (!current.isBusy) {
-            std::cout << time << ": WebServer " << current.id << 
-                " finished Request " << current.request.id << std::endl;
+            if (verboseLogging) {
+                std::cout << time << ": WebServer " << current.id 
+                          << " finished Request " << current.request.id 
+                          << " (IP_IN: " << current.request.IP_IN 
+                          << ", IP_OUT: " << current.request.IP_OUT << ")" << std::endl;
+            } else {
+                std::cout << time << ": WebServer " << current.id 
+                          << " finished Request " << current.request.id << std::endl;
+            }
             requests_finished++;
         }
 
-        // check if webServers needs to be expanded
         if (requestQueue.size() > (5 * webServers.size())) {
             WebServer ws;
             if (availableWebServerIds.empty()) {
                 ws = WebServer(webServers.size() + 1);
-            }
-            else {
+            } else {
                 ws = WebServer(availableWebServerIds.front());
                 availableWebServerIds.pop();
             }
             webServers.push_back(ws);
             servers_created++;
-            std::cout << time << ": Created WebServer with ID " << ws.id << std::endl;
+            if (verboseLogging) {
+                std::cout << time << ": Created WebServer with ID " << ws.id << std::endl;
+            }
         }
     }
 }
