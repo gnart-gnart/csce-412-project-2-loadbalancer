@@ -19,8 +19,7 @@ void LoadBalancer::runOneCycle(std::string time) {
 
     for (int i = 0; i < webServers.size(); i++) {
 
-        WebServer current = webServers.at(i);
-        std::cout << current.isBusy;
+        WebServer& current = webServers.at(i);
 
         if (!(current.isBusy)) {
             // try to assign a request
@@ -66,6 +65,14 @@ void LoadBalancer::runOneCycle(std::string time) {
             std::cout << time << ": Created WebServer with ID " << ws.id << std::endl;
         }
     }
+}
+
+int LoadBalancer::getServersLeft() {
+    return webServers.size();
+}
+
+int LoadBalancer::getRequestsLeft() {
+    return requestQueue.size();
 }
 
 void LoadBalancer::pushNewRequest() {

@@ -18,6 +18,9 @@ public:
     void createWebservers(int num_web_servers);
     void pushNewRequest();
 
+    int getServersLeft();
+    int getRequestsLeft();
+
     int servers_created = 0;
     int servers_deleted = 0;
     int requests_finished = 0;

@@ -1,6 +1,7 @@
 #include "webserver.h"
 
 WebServer::WebServer() {
+    isBusy = false;
     this->id = -1;
 }
 
