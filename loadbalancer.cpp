@@ -20,8 +20,9 @@ void LoadBalancer::runOneCycle(std::string time) {
     for (int i = 0; i < webServers.size(); i++) {
 
         WebServer current = webServers.at(i);
+        std::cout << current.isBusy;
 
-        if (!current.isBusy) {
+        if (!(current.isBusy)) {
             // try to assign a request
             if (requestQueue.empty()) {
                 // try to delete web server

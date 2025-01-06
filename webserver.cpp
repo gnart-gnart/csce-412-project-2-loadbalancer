@@ -1,7 +1,6 @@
 #include "webserver.h"
 
 WebServer::WebServer() {
-    isBusy = false;
     this->id = -1;
 }
 
@@ -16,8 +15,10 @@ void WebServer::assignRequest(Request r) {
 }
 
 void WebServer::runOneCycle() {
-    request.timeLeft--;
-    if (request.timeLeft < 1) {
-        isBusy = false;
+    if (isBusy) {
+        request.timeLeft--;
+        if (request.timeLeft < 1) {
+            isBusy = false;
+        }
     }
 }
