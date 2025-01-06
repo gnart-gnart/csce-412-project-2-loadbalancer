@@ -68,7 +68,6 @@ void LoadBalancer::runOneCycle(std::string time) {
 }
 
 void LoadBalancer::pushNewRequest() {
-    Request r;
-    r.id = requestQueue.size();
+    Request r(requestQueue.size());
     requestQueue.push(r);
 }

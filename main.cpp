@@ -29,7 +29,8 @@ int main(int argc, char* argv[]) {
     std::cout << "Enter the number of webservers:" << std::endl;
     std::cin >> num_web_servers;
 
-    std::cout << "Running " << num_clock_cycles << " cycles..." << std::endl;
+    std::cout << "Running " << num_clock_cycles << " cycles with " 
+        << num_web_servers << " servers..." << std::endl;
     run_load_balancer(num_clock_cycles, num_web_servers);
     std::cout << "Done!" << std::endl;
 
