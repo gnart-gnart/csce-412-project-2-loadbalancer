@@ -1,12 +1,12 @@
 #include "loadbalancer.h"
 
-LoadBalancer::LoadBalancer() {
-    // create 10 webservers and 200 requests
-    for (int i = 0; i < 10; i++) {
+
+void LoadBalancer::createWebservers(int num_web_servers) {
+    for (int i = 0; i < num_web_servers; i++) {
         webServers.push_back(WebServer());
-    }
-    for (int i = 0; i < 200; i++) {
-        requestQueue.push(Request());
+        for (int j = 0; j < 5; j++) {
+            requestQueue.push(Request());
+        }
     }
 }
 
