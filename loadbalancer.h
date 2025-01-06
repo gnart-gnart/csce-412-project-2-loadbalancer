@@ -9,11 +9,13 @@ class LoadBalancer {
 private:
     std::vector<WebServer> webServers;
     std::queue<Request> requestQueue;
+    std::queue<int> availableWebServerIds;
 
 public:
     LoadBalancer();
     void runOneCycle();
     void createWebservers(int num_web_servers);
+    void pushNewRequest();
 };
 
 

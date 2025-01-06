@@ -5,8 +5,9 @@
 
 struct Request {
     Request();
+    Request(int id);
     std::string IP_IN, IP_OUT;
-    int timeLeft;
+    int timeLeft, id;
     char jobType;
 };
 

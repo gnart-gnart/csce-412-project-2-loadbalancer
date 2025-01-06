@@ -6,12 +6,14 @@
 class WebServer {
 private:
     Request request;
-    
+
 public:
     WebServer();
+    WebServer(int id);
     bool isBusy;
     void assignRequest(Request r);
     void runOneCycle();
+    int id;
 };
 
 #endif

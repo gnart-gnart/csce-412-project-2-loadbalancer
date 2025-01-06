@@ -1,8 +1,13 @@
 #include "webserver.h"
 
-
 WebServer::WebServer() {
     isBusy = false;
+    this->id = -1;
+}
+
+WebServer::WebServer(int id) {
+    isBusy = false;
+    this->id = id;
 }
 
 void WebServer::assignRequest(Request r) {

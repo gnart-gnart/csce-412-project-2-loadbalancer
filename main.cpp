@@ -7,6 +7,9 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers) {
     loadBalancer.createWebservers(num_web_servers);
     for (int i = 0; i < num_clock_cycles; i++) {
         loadBalancer.runOneCycle();
+        if ((rand() % 5) == 0) {
+            loadBalancer.pushNewRequest();
+        }
     }
 }
 
