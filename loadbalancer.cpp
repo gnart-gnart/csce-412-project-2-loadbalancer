@@ -73,7 +73,7 @@ void LoadBalancer::runOneCycle(std::string time) {
             requests_finished++;
         }
 
-        if (requestQueue.size() > (5 * webServers.size())) {
+        if (requestQueue.size() > (4 * webServers.size())) {
             WebServer ws;
             if (availableWebServerIds.empty()) {
                 ws = WebServer(webServers.size() + 1);
