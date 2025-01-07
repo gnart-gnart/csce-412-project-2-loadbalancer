@@ -21,16 +21,16 @@ void run_load_balancer(int num_clock_cycles, int num_web_servers, bool verbose) 
         }
     }
 
-    std::cout << std::endl
+    std::cout << "—————" << std::endl
         << "Started with " << std::to_string(num_web_servers * 5) << " requests in queue."
         << std::endl << "Ended with " << loadBalancer.getRequestsLeft() << " request in queue."
         << std::endl << "Range for task times: 10-100"
         << std::endl << "Added " << loadBalancer.servers_created << " servers."
-        << std::endl << "Deleted " << loadBalancer.servers_deleted << " servers."
-        << std::endl
+        << std::endl << "Removed " << loadBalancer.servers_deleted << " servers."
+        << std::endl << "—————"
         << std::endl << "There are " << loadBalancer.getServersLeft() << " servers left."
         << std::endl << "Finished " << loadBalancer.requests_finished << " requests."
-        << std::endl;
+        << std::endl << "—————";
 }
 
 /**
@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Running " << num_clock_cycles << " cycles with " 
         << num_web_servers << " servers..." << std::endl;
     run_load_balancer(num_clock_cycles, num_web_servers, verbose);
-    std::cout << "Done!" << std::endl;
+    std::cout << std::endl;
 
     return 0;
 }
